@@ -52,7 +52,7 @@ II.Inside the class add as string list for face card and suit
 II. Create a combined string List for the Deck of cards
 III.Create a method section to randomly shuffle the deck
 IIII. Randomly shuffle the deck.
-III.Create a method to assign a int(Ace=10 FaceValues=10) value to each card.
+III.Create a method to assign a int(Ace=11 FaceValues=10) value to each card.
 
 I. Create a class to store the players hand
 II. Deal the player 2 cards off the top of the deck (from the altered deck)
@@ -66,6 +66,8 @@ IIII. If "Stand" Is selected redirect to the computer(dealer) class to continue 
 III. If it is a bust mark as lost.
 III. If the player decides to stand save that value.
 
+-Might explore the idea of one class in order to create the variables more at the end.
+
 I. Create a class to store computers(dealer) hand
 II. Deal the computer(dealer) 2 cards off the top of the deck, but do not reveal the cards just store them
 II. Take those values out of the deck. (New variable?)
@@ -78,7 +80,7 @@ IIII. Take any cards added out of the deck.
 III. If if is busted mark as busted
 III. Save value of final cards
 
-I. Compare final player value and computer value.
+I. Create two new variables and compare the values.
 II If player value is greater than computer value player has won
 II. If computer value is greater than player than computer has won
 II. If player is busted computer wins
