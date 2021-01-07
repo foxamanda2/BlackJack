@@ -26,7 +26,7 @@
 -If the computer busts (over 21) and the player is less than 21 than the player wins.
 -If the computer is dealt a "2 of Hearts" and a "5 of spades" the computer is automatically dealt another card until it equals 17 or more.
 
-## D- Data Structure
+## D= Data Structure
 
 -Class needed for deck of cards
 --string List needed for face values and suit
