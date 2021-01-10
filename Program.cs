@@ -7,59 +7,64 @@ namespace BlackJack
     {
         public string Suit { get; set; }
         public string Face { get; set; }
-
+        public int Value { get; set; }
 
         public string CardBuild()
         {
-            return ($"{Face} of {Suit}");
+            return ($"{Face} of {Suit}.");
 
         }
+        // public void AddValues()
+        // {
+        //     Value = Value + Value;
+        //     Console.WriteLine($"Your Total is: {Value}");
+        // }
 
-        public int Value()
-        {
-            // Absolutely could be a switch!
-            if (Face == "Ace")
-            {
-                return 11;
-            }
-            if (Face == "King" || Face == "Queen" || Face == "Jack" || Face == "10")
-            {
-                return 10;
-            }
-            if (Face == "2")
-            {
-                return 2;
-            }
-            if (Face == "3")
-            {
-                return 3;
-            }
-            if (Face == "4")
-            {
-                return 4;
-            }
-            if (Face == "5")
-            {
-                return 5;
-            }
-            if (Face == "6")
-            {
-                return 6;
-            }
-            if (Face == "7")
-            {
-                return 7;
-            }
-            if (Face == "8")
-            {
-                return 8;
-            }
-            if (Face == "9")
-            {
-                return 9;
-            }
+        // public int Value()
+        // {
+        //     // Absolutely could be a switch!
+        //     if (Face == "Ace")
+        //     {
+        //         Face = 11;
+        //     }
+        //     if (Face == "King" || Face == "Queen" || Face == "Jack" || Face == "10")
+        //     {
+        //         return 10;
+        //     }
+        //     if (Face == "2")
+        //     {
+        //         return 2;
+        //     }
+        //     if (Face == "3")
+        //     {
+        //         return 3;
+        //     }
+        //     if (Face == "4")
+        //     {
+        //         return 4;
+        //     }
+        //     if (Face == "5")
+        //     {
+        //         return 5;
+        //     }
+        //     if (Face == "6")
+        //     {
+        //         return 6;
+        //     }
+        //     if (Face == "7")
+        //     {
+        //         return 7;
+        //     }
+        //     if (Face == "8")
+        //     {
+        //         return 8;
+        //     }
+        //     if (Face == "9")
+        //     {
+        //         return 9;
+        //     }
 
-        }
+        // }
 
     }
 
@@ -68,6 +73,7 @@ namespace BlackJack
         public List<Card> CardsInDeck { get; set; } = new List<Card>();
         public List<Card> PlayerHand { get; set; } = new List<Card>();
         public List<Card> HouseHand { get; set; } = new List<Card>();
+
 
         public void CreateDeck()
         {
@@ -83,6 +89,50 @@ namespace BlackJack
                     var newCard = new Card();
                     newCard.Suit = suit;
                     newCard.Face = face;
+
+                    int value = 0;
+                    if (face == "Ace")
+                    {
+                        value = 11;
+                    }
+                    if (face == "King" || face == "Queen" || face == "Jack" || face == "10")
+                    {
+                        value = 10;
+                    }
+                    if (face == "2")
+                    {
+                        value = 2;
+                    }
+                    if (face == "3")
+                    {
+                        value = 3;
+                    }
+                    if (face == "4")
+                    {
+                        value = 4;
+                    }
+                    if (face == "5")
+                    {
+                        value = 5;
+                    }
+                    if (face == "6")
+                    {
+                        value = 6;
+                    }
+                    if (face == "7")
+                    {
+                        value = 7;
+                    }
+                    if (face == "8")
+                    {
+                        value = 8;
+                    }
+                    if (face == "9")
+                    {
+                        value = 9;
+                    }
+
+                    newCard.Value = value;
 
                     CardsInDeck.Add(newCard);
                 }
@@ -127,7 +177,7 @@ namespace BlackJack
         {
             var firstCard = CardsInDeck[0];
             CardsInDeck.Remove(firstCard);
-            HouseHand.Add(firstCard);
+            // HouseHand.Add(firstCard);
 
         }
 
@@ -145,6 +195,7 @@ namespace BlackJack
                 Console.WriteLine($"House cards are: {cardToPrint.CardBuild()}");
             }
         }
+
 
         static void Displaygame()
         {
@@ -167,9 +218,30 @@ namespace BlackJack
                 Environment.Exit(-1);
             }
         }
-        class Player
-        {
 
+        public void HitStand(string prompt)
+        {
+            Console.Write(prompt);
+            var HorS = Console.ReadLine().ToLower();
+            if (HorS == "h" || HorS == "hit")
+            {
+                var firstCard = CardsInDeck[0];
+                CardsInDeck.Remove(firstCard);
+                PlayerHand.Add(firstCard);
+
+
+                foreach (var cardToPrint in PlayerHand)
+                {
+                    Console.WriteLine($"Your hand is: {cardToPrint.CardBuild()}");
+                }
+            }
+            else
+            {
+                foreach (var cardToPrint in PlayerHand)
+                {
+                    Console.WriteLine($"You are standing with: {cardToPrint.CardBuild()}");
+                }
+            }
         }
 
         static void Main(string[] args)
@@ -183,10 +255,17 @@ namespace BlackJack
             player1.PlayerCard();
             player1.PlayerCard();
             player1.PrintPlayerCards();
+            Console.WriteLine($"Gavin's car is going {player1.Value}");
             Console.WriteLine("------------");
-            player1.HouseCard();
-            player1.HouseCard();
-            player1.PrintHouseCards();
+            player1.HitStand("Do you want to hit or stand?");
+
+
+
+
+
+
+
+
 
 
 
