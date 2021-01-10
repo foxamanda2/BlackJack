@@ -15,58 +15,60 @@ namespace BlackJack
 
         }
 
-        // public int Value()
-        // {
-        //     // Absolutely could be a switch!
-        //     if (Face == "Ace")
-        //     {
-        //         return 11;
-        //     }
-        //     if (Face == "King" || Face == "Queen" || Face == "Jack" || Face == "10")
-        //     {
-        //         return 10;
-        //     }
-        //     if (Face == "2")
-        //     {
-        //         return 2;
-        //     }
-        //     if (Face == "3")
-        //     {
-        //         return 3;
-        //     }
-        //     if (Face == "4")
-        //     {
-        //         return 4;
-        //     }
-        //     if (Face == "5")
-        //     {
-        //         return 5;
-        //     }
-        //     if (Face == "6")
-        //     {
-        //         return 6;
-        //     }
-        //     if (Face == "7")
-        //     {
-        //         return 7;
-        //     }
-        //     if (Face == "8")
-        //     {
-        //         return 8;
-        //     }
-        //     if (Face == "9")
-        //     {
-        //         return 9;
-        //     }
+        public int Value()
+        {
+            // Absolutely could be a switch!
+            if (Face == "Ace")
+            {
+                return 11;
+            }
+            if (Face == "King" || Face == "Queen" || Face == "Jack" || Face == "10")
+            {
+                return 10;
+            }
+            if (Face == "2")
+            {
+                return 2;
+            }
+            if (Face == "3")
+            {
+                return 3;
+            }
+            if (Face == "4")
+            {
+                return 4;
+            }
+            if (Face == "5")
+            {
+                return 5;
+            }
+            if (Face == "6")
+            {
+                return 6;
+            }
+            if (Face == "7")
+            {
+                return 7;
+            }
+            if (Face == "8")
+            {
+                return 8;
+            }
+            if (Face == "9")
+            {
+                return 9;
+            }
 
-        // }
+        }
 
     }
 
     class Deck
     {
         public List<Card> CardsInDeck { get; set; } = new List<Card>();
-        public List<Card> CardsInHand { get; set; } = new List<Card>();
+        public List<Card> PlayerHand { get; set; } = new List<Card>();
+        public List<Card> HouseHand { get; set; } = new List<Card>();
+
         public void CreateDeck()
         {
             var suitList = new List<string>() { "Spades", "Diamonds", "Hearts", "Clubs" };
@@ -113,19 +115,34 @@ namespace BlackJack
             }
         }
 
-        public void DealCard()
+        public void PlayerCard()
         {
             var firstCard = CardsInDeck[0];
             CardsInDeck.Remove(firstCard);
-            CardsInHand.Add(firstCard);
+            PlayerHand.Add(firstCard);
 
         }
 
-        public void PrintCardsInHand()
+        public void HouseCard()
         {
-            foreach (var cardToPrint in CardsInHand)
+            var firstCard = CardsInDeck[0];
+            CardsInDeck.Remove(firstCard);
+            HouseHand.Add(firstCard);
+
+        }
+
+        public void PrintPlayerCards()
+        {
+            foreach (var cardToPrint in PlayerHand)
             {
-                Console.WriteLine(cardToPrint.CardBuild());
+                Console.WriteLine($"Your cards are: {cardToPrint.CardBuild()}");
+            }
+        }
+        public void PrintHouseCards()
+        {
+            foreach (var cardToPrint in HouseHand)
+            {
+                Console.WriteLine($"House cards are: {cardToPrint.CardBuild()}");
             }
         }
 
@@ -136,7 +153,7 @@ namespace BlackJack
             Console.WriteLine();
         }
 
-        public void BeginPrompt(string prompt)
+        static void BeginPrompt(string prompt)
         {
             Console.Write(prompt);
             var openingQuestion = Console.ReadLine().ToLower();
@@ -150,32 +167,26 @@ namespace BlackJack
                 Environment.Exit(-1);
             }
         }
+        class Player
+        {
 
-
-
-
-
+        }
 
         static void Main(string[] args)
         {
             Displaygame();
+            BeginPrompt("Are you ready to play? Yes or No?");
 
-
-
-
-
-            var firstDeck = new Deck();
-
-            firstDeck.BeginPrompt("Are you ready to play? Yes or No?");
-
-
-
-
-
-
-
-            firstDeck.PrintCardsInHand();
-
+            var player1 = new Deck();
+            player1.CreateDeck();
+            player1.Shuffle();
+            player1.PlayerCard();
+            player1.PlayerCard();
+            player1.PrintPlayerCards();
+            Console.WriteLine("------------");
+            player1.HouseCard();
+            player1.HouseCard();
+            player1.PrintHouseCards();
 
 
 
