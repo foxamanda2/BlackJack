@@ -86,3 +86,34 @@ II. If computer value is greater than player than computer has won
 II. If player is busted computer wins
 II. If computer busted player has won.
 II. If it is a tie than the computer has won
+
+A-Algorithm
+
+What is needed for the game?
+
+Cards
+-Suit
+-Face
+-Value
+-Combine the three
+Deck
+--Make Method
+---Create a list for the deck
+---List of Suits and Faces
+---Two for loops inside to combine list
+---Give the cards a value
+---Add to the list
+--Shuffle method
+---Do the cool shuffle with the list
+
+Player
+--Card of hands Method
+---Take the top two cards off the top of the list
+---Place into a list for hands and computer
+---remove the list from deck
+
+Program
+--Method to welcome to the game
+--Method to ask if you want to play the game
+--Method to reveal top two cards
+--Main
