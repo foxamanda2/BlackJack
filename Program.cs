@@ -14,57 +14,6 @@ namespace BlackJack
             return ($"{Face} of {Suit}.");
 
         }
-        // public void AddValues()
-        // {
-        //     Value = Value + Value;
-        //     Console.WriteLine($"Your Total is: {Value}");
-        // }
-
-        // public int Value()
-        // {
-        //     // Absolutely could be a switch!
-        //     if (Face == "Ace")
-        //     {
-        //         Face = 11;
-        //     }
-        //     if (Face == "King" || Face == "Queen" || Face == "Jack" || Face == "10")
-        //     {
-        //         return 10;
-        //     }
-        //     if (Face == "2")
-        //     {
-        //         return 2;
-        //     }
-        //     if (Face == "3")
-        //     {
-        //         return 3;
-        //     }
-        //     if (Face == "4")
-        //     {
-        //         return 4;
-        //     }
-        //     if (Face == "5")
-        //     {
-        //         return 5;
-        //     }
-        //     if (Face == "6")
-        //     {
-        //         return 6;
-        //     }
-        //     if (Face == "7")
-        //     {
-        //         return 7;
-        //     }
-        //     if (Face == "8")
-        //     {
-        //         return 8;
-        //     }
-        //     if (Face == "9")
-        //     {
-        //         return 9;
-        //     }
-
-        // }
 
     }
 
@@ -73,7 +22,6 @@ namespace BlackJack
         public List<Card> CardsInDeck { get; set; } = new List<Card>();
         public List<Card> PlayerHand { get; set; } = new List<Card>();
         public List<Card> HouseHand { get; set; } = new List<Card>();
-
 
         public void CreateDeck()
         {
@@ -183,11 +131,21 @@ namespace BlackJack
 
         public void PrintPlayerCards()
         {
+            var total = 0;
             foreach (var cardToPrint in PlayerHand)
             {
+                total = total + Value;
                 Console.WriteLine($"Your cards are: {cardToPrint.CardBuild()}");
+                Console.WriteLine($"This this the value of your card:{cardToPrint.Value}");
             }
         }
+
+        // public void playerHandTotal()
+        // {
+        //     var playerhandtotal = Value;
+        // }
+
+
         public void PrintHouseCards()
         {
             foreach (var cardToPrint in HouseHand)
@@ -234,6 +192,8 @@ namespace BlackJack
                 {
                     Console.WriteLine($"Your hand is: {cardToPrint.CardBuild()}");
                 }
+                Console.Write(prompt);
+
             }
             else
             {
@@ -255,9 +215,10 @@ namespace BlackJack
             player1.PlayerCard();
             player1.PlayerCard();
             player1.PrintPlayerCards();
-            Console.WriteLine($"Gavin's car is going {player1.Value}");
+
             Console.WriteLine("------------");
             player1.HitStand("Do you want to hit or stand?");
+
 
 
 
