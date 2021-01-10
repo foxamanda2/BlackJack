@@ -8,121 +8,126 @@ namespace BlackJack
         public string Suit { get; set; }
         public string Face { get; set; }
 
+
         public string CardBuild()
         {
             return ($"{Face} of {Suit}");
 
         }
-        // public int ValueofCards()
+
+        // public int Value()
         // {
-        //     switch (Face)
+        //     // Absolutely could be a switch!
+        //     if (Face == "Ace")
         //     {
-        //         case "Ace":
-        //             return 11;
-        //         case "King":
-        //         case "Queen":
-        //         case "Jack":
-        //         case "10":
-        //             return 10;
-        //         case "2":
-        //             return 2;
-        //         case "3":
-        //             return 3;
-        //         case "4":
-        //             return 4;
-        //         case "5":
-        //             return 5;
-        //         case "6":
-        //             return 6;
-        //         case "7":
-        //             return 7;
-        //         case "8":
-        //             return 8;
-        //         case "9":
-        //             return 9;
+        //         return 11;
         //     }
+        //     if (Face == "King" || Face == "Queen" || Face == "Jack" || Face == "10")
+        //     {
+        //         return 10;
+        //     }
+        //     if (Face == "2")
+        //     {
+        //         return 2;
+        //     }
+        //     if (Face == "3")
+        //     {
+        //         return 3;
+        //     }
+        //     if (Face == "4")
+        //     {
+        //         return 4;
+        //     }
+        //     if (Face == "5")
+        //     {
+        //         return 5;
+        //     }
+        //     if (Face == "6")
+        //     {
+        //         return 6;
+        //     }
+        //     if (Face == "7")
+        //     {
+        //         return 7;
+        //     }
+        //     if (Face == "8")
+        //     {
+        //         return 8;
+        //     }
+        //     if (Face == "9")
+        //     {
+        //         return 9;
+        //     }
+
         // }
 
-        class Deck
+    }
+
+    class Deck
+    {
+        public List<Card> CardsInDeck { get; set; } = new List<Card>();
+        public List<Card> CardsInHand { get; set; } = new List<Card>();
+        public void CreateDeck()
         {
-            public List<Card> CardsInDeck { get; set; } = new List<Card>();
-            public void CreateDeck()
+            var suitList = new List<string>() { "Spades", "Diamonds", "Hearts", "Clubs" };
+            var faceList = new List<string>() { "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace" };
+
+
+            foreach (var suit in suitList)
             {
-                var suitList = new List<string>() { "Spades", "Diamonds", "Hearts", "Clubs" };
-                var faceList = new List<string>() { "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace" };
-
-
-                foreach (var suit in suitList)
+                foreach (var face in faceList)
                 {
-                    foreach (var face in faceList)
-                    {
 
-                        var newCard = new Card();
-                        newCard.Suit = suit;
-                        newCard.Face = face;
+                    var newCard = new Card();
+                    newCard.Suit = suit;
+                    newCard.Face = face;
 
-                        CardsInDeck.Add(newCard);
-                    }
-
+                    CardsInDeck.Add(newCard);
                 }
 
-            }
-
-            public void Shuffle()
-            {
-                var numOfCards = CardsInDeck.Count;
-                for (var rightindex = numOfCards - 1; rightindex >= 0; rightindex--)
-                {
-                    var randomNumberGenerator = new Random();
-                    var leftindex = randomNumberGenerator.Next(rightindex);
-                    var leftNum = CardsInDeck[leftindex];
-                    var rightNum = CardsInDeck[rightindex];
-                    CardsInDeck[rightindex] = leftNum;
-                    CardsInDeck[leftindex] = rightNum;
-
-                }
-
-            }
-
-            public void PrintCards()
-            {
-                foreach (var cardToPrint in CardsInDeck)
-                {
-                    Console.WriteLine(cardToPrint.CardBuild());
-                }
             }
 
         }
 
-        // var playerhand = new List<string>() { deckOfCards[0], deckOfCards[1] };
+        public void Shuffle()
+        {
+            var numOfCards = CardsInDeck.Count;
+            for (var rightindex = numOfCards - 1; rightindex >= 0; rightindex--)
+            {
+                var randomNumberGenerator = new Random();
+                var leftindex = randomNumberGenerator.Next(rightindex);
+                var leftNum = CardsInDeck[leftindex];
+                var rightNum = CardsInDeck[rightindex];
+                CardsInDeck[rightindex] = leftNum;
+                CardsInDeck[leftindex] = rightNum;
 
-        // var househand = new List<string>() { deckOfCards[2], deckOfCards[3] };
+            }
 
-        // Removing cards from deck
-        //     for (var removedCard = 0; removedCard < 4; removedCard++)
-        //     {
-        //         deckOfCards.Remove(deckOfCards[0]);
-        //     }
+        }
 
+        public void PrintCards()
+        {
+            foreach (var cardToPrint in CardsInDeck)
+            {
+                Console.WriteLine(cardToPrint.CardBuild());
+            }
+        }
 
+        public void DealCard()
+        {
+            var firstCard = CardsInDeck[0];
+            CardsInDeck.Remove(firstCard);
+            CardsInHand.Add(firstCard);
 
+        }
 
-        // }
-        // public List<Card> cards;
-
-        // class Draw()
-        //         {
-        //     //  Creating new lists for hands 
-        //     var playerhand = new List<string>() { deckOfCards[0], deckOfCards[1] };
-
-        //     var househand = new List<string>() { deckOfCards[2], deckOfCards[3] };
-
-        //     // Removing cards from deck
-        //     for (var removedCard = 0; removedCard < 4; removedCard++)
-        //     {
-        //         deckOfCards.Remove(deckOfCards[0]);
-        //     }
-        // }
+        public void PrintCardsInHand()
+        {
+            foreach (var cardToPrint in CardsInHand)
+            {
+                Console.WriteLine(cardToPrint.CardBuild());
+            }
+        }
 
         static void Displaygame()
         {
@@ -130,86 +135,56 @@ namespace BlackJack
             Console.WriteLine("Welcome to BlackJack: A Game of Chances and Struggle");
             Console.WriteLine();
         }
-        static void BeginPrompt(string prompt)
+
+        public void BeginPrompt(string prompt)
         {
             Console.Write(prompt);
-            var beginques = Console.ReadLine().ToLower();
+            var openingQuestion = Console.ReadLine().ToLower();
+            if (openingQuestion == "yes" || openingQuestion == "y")
+            {
+                Console.WriteLine("Let the game begin");
+            }
+            else
+            {
+                Console.WriteLine("Okay no game today.");
+                Environment.Exit(-1);
+            }
         }
-        //     if (beginques == "yes")
-        //     {
-        //         foreach (var card in playerhand)
-        //         {
-        //             Console.WriteLine($"Your hand is {card}");
-        //         }
-        //     }
-        //     else
-        //     {
-        //         Console.WriteLine("Okay no game today.");
-        //         Environment.Exit(-1);
-        //     }
-        // }
+
+
+
+
+
 
         static void Main(string[] args)
         {
+            Displaygame();
+
+
+
+
 
             var firstDeck = new Deck();
-            firstDeck.CreateDeck();
-            firstDeck.Shuffle();
-            firstDeck.PrintCards();
 
-            // //  Trying to hit or Stand
-            // Console.Write("Would you like to Hit or Stand? Type H for hit or S for stand:");
-            // var hors = Console.ReadLine().ToLower();
+            firstDeck.BeginPrompt("Are you ready to play? Yes or No?");
+
+
+
+
+
+
+
+            firstDeck.PrintCardsInHand();
+
+
+
+
+
+
         }
     }
 }
 
-// if (hors == "h")
-// {
-//     playerhand.Add(deckOfCards[0]);
-//     foreach (var card in playerhand)
-//     {
-//         Console.WriteLine($"Your hand is: {card}");
-//     }
-//     for (var removedCard = 0; removedCard < 1; removedCard++)
-//     {
-//         deckOfCards.Remove(deckOfCards[0]);
-//     }
-
-// }
-// if (hors == "s")
-// {
-//     foreach (var card in playerhand)
-//     {
-//         Console.WriteLine($"You are going to stand with: {card}");
-//     }
-
-// }
-// foreach (var change in values)
-// {
-//     Console.WriteLine(change);
-// }
-
-// List<int> intList = stringList.ConvertAll(int.Parse)
-
-
-
-//  Printing out new removed deck
-//         foreach (var cards in deckOfCards)
-//         {
-//             Console.WriteLine(cards);
-
-//         }
-
-//         // Trying to add a hand to my list
-//         playerhand.Add(deckOfCards[0]);
-//         playerhand.Add(deckOfCards[1]);
-
-//         for (var hand = 0; hand < playerhand.Count; hand++)
-//         {
-//             Console.WriteLine($"players hand {playerhand[hand]}");
-
-//         }
 
 
 
