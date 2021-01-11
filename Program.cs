@@ -5,10 +5,12 @@ namespace BlackJack
 {
     class Card
     {
+        // Properties of a Card
         public string Suit { get; set; }
         public string Face { get; set; }
         public int Value { get; set; }
 
+        // Method for how a card should look
         public string CardBuild()
         {
             return ($"{Face} of {Suit}.");
@@ -19,10 +21,12 @@ namespace BlackJack
 
     class Deck
     {
+        // List properties for Deck (Deck now is where Card is stored)
         public List<Card> CardsInDeck { get; set; } = new List<Card>();
         public List<Card> PlayerHand { get; set; } = new List<Card>();
         public List<Card> HouseHand { get; set; } = new List<Card>();
 
+        //  Method to add a Deck to a list in class Cards
         public void CreateDeck()
         {
             var suitList = new List<string>() { "Spades", "Diamonds", "Hearts", "Clubs" };
@@ -89,6 +93,7 @@ namespace BlackJack
 
         }
 
+        //  Method to shuffle Cards
         public void Shuffle()
         {
             var numOfCards = CardsInDeck.Count;
@@ -105,6 +110,7 @@ namespace BlackJack
 
         }
 
+        //  Method to print all of the cards
         public void PrintCards()
         {
             foreach (var cardToPrint in CardsInDeck)
@@ -113,6 +119,7 @@ namespace BlackJack
             }
         }
 
+        //  Method incase extra player cards are added to the instances
         public void PlayerCard()
         {
             var firstCard = CardsInDeck[0];
@@ -121,6 +128,7 @@ namespace BlackJack
 
         }
 
+        // Method incase extra house cards are added to the instances
         public void HouseCard()
         {
             var firstCard = CardsInDeck[0];
@@ -129,6 +137,7 @@ namespace BlackJack
 
         }
 
+        //  Method to print Player cards
         public void PrintPlayerCards()
         {
             var playertotal = 0;
@@ -141,9 +150,7 @@ namespace BlackJack
             Console.WriteLine($"Your total is {playertotal}");
         }
 
-
-
-
+        //  Method to print House cards
         public void PrintHouseCards()
         {
             var Housetotal = 0;
@@ -152,12 +159,11 @@ namespace BlackJack
                 Housetotal = Housetotal + cardToPrint.Value;
                 Console.WriteLine(cardToPrint.CardBuild());
             }
-            // Console.WriteLine($"Your total is {Housetotal}");
         }
 
 
 
-
+        // Prompt for Overall Game
         static void Displaygame()
         {
             Console.WriteLine();
@@ -165,6 +171,7 @@ namespace BlackJack
             Console.WriteLine();
         }
 
+        //  Prompt for playing game
         static void BeginPrompt(string prompt)
         {
             Console.Write(prompt);
@@ -182,30 +189,32 @@ namespace BlackJack
 
         public void HitStand(string prompt)
         {
+            //  Prompt for Hit or Stand
             Console.Write(prompt);
+            Console.WriteLine("\n");
             var HorS = Console.ReadLine().ToLower();
+
+            // Initializing counter for total score
             var playertotal = 0;
 
-            // while (playertotal)
-            // {
-
+            // If player Decides to Hit program will add card (Only adds one card)
             if (HorS == "h" || HorS == "hit")
             {
                 var firstCard = CardsInDeck[0];
                 CardsInDeck.Remove(firstCard);
                 PlayerHand.Add(firstCard);
 
-
+                //  WriteLine Cards in hand and total points
                 foreach (var cardToPrint in PlayerHand)
                 {
                     playertotal = playertotal + cardToPrint.Value;
                     Console.WriteLine($"Your hand is: {cardToPrint.CardBuild()}");
                 }
                 Console.WriteLine("\n");
-                Console.Write(playertotal);
+                Console.Write($"Your Total is: {playertotal}");
                 Console.WriteLine("\n");
 
-
+                // If Player gets over 21 Automatically bust and close game
                 if (playertotal > 21)
                 {
                     Console.WriteLine("\n");
@@ -214,6 +223,7 @@ namespace BlackJack
                 }
             }
 
+            //  WriteLine cards in list if stand is selected
             if (HorS == "s" || HorS == "stand")
             {
                 foreach (var cardToPrint in PlayerHand)
@@ -221,6 +231,7 @@ namespace BlackJack
                     playertotal = playertotal + cardToPrint.Value;
                     Console.WriteLine($"Your hand is: {cardToPrint.CardBuild()}");
                 }
+                Console.WriteLine("\n");
                 Console.Write($"Your total is {playertotal}");
             }
 
@@ -230,14 +241,22 @@ namespace BlackJack
         {
             var HouseFinal = 0;
 
+            //  Adding Player Final Number
             var PlayerFinal = 0;
             foreach (var cardToPrint in PlayerHand)
             {
                 PlayerFinal = PlayerFinal + cardToPrint.Value;
             }
 
-            // while (HouseFinal < 17)
-            // {
+            //  Hitting for House
+            if (HouseFinal < 17)
+            {
+                var firstCard = CardsInDeck[0];
+                CardsInDeck.Remove(firstCard);
+                HouseHand.Add(firstCard);
+            }
+
+            //  Finding House total and Cards
             foreach (var cardToPrint in HouseHand)
             {
                 HouseFinal = HouseFinal + cardToPrint.Value;
@@ -247,17 +266,21 @@ namespace BlackJack
             Console.WriteLine($"Final House Total:{HouseFinal}");
 
 
-            // var firstCard = CardsInDeck[0];
-            // CardsInDeck.Remove(firstCard);
-            // HouseHand.Add(firstCard);
+            //  Comparing House total to Player Total
+            if (HouseFinal > 21 && PlayerFinal == 21)
+            {
+                Console.WriteLine("\n");
+                Console.WriteLine("You Won.");
+                Console.WriteLine("\n");
+            }
+            if (HouseFinal > 21)
+            {
+                Console.WriteLine("\n");
+                Console.WriteLine("House Busted. You Won.");
+                Console.WriteLine("\n");
+                Environment.Exit(-1);
+            }
 
-            // if (Housetotal == 17)
-            // {
-            //     var finalTotal = Housetotal;
-            //     Console.WriteLine(Housetotal);
-            // }
-
-            // }
             if (HouseFinal > PlayerFinal)
             {
                 Console.WriteLine("\n");
@@ -270,6 +293,7 @@ namespace BlackJack
                 Console.WriteLine("YOU WON!");
                 Console.WriteLine("\n");
             }
+
             if (HouseFinal == PlayerFinal)
             {
                 Console.WriteLine("\n");
@@ -278,38 +302,35 @@ namespace BlackJack
             }
 
 
+
         }
 
 
         static void Main(string[] args)
         {
+            // Opening Prompts
             Displaygame();
-            BeginPrompt("Are you ready to play? Yes or No?");
+            BeginPrompt("Are you ready to play? Yes or No? ");
 
-            // Create deck player deck and cards in main
 
-            var player1 = new Deck();
-            player1.CreateDeck();
-            player1.Shuffle();
-            player1.PlayerCard();
-            player1.PlayerCard();
-            player1.PrintPlayerCards();
-            // player1.PrintPlayerCards();
+            // New Game
+            var game1 = new Deck();
+            game1.CreateDeck();
+            game1.Shuffle();
+            game1.PlayerCard();
+            game1.PlayerCard();
+            game1.PrintPlayerCards();
             Console.WriteLine("------------");
-            player1.HitStand("Do you want to hit or stand?");
+            game1.HitStand("Do you want to hit or stand?");
             Console.WriteLine("\n");
-            Console.WriteLine("\n");
-            player1.HouseCard();
-            player1.HouseCard();
-
-            // Console.WriteLine("------------");
-            // player1.HitStand("Do you want to hit or stand?");
-            player1.Houseplay();
+            game1.HouseCard();
+            game1.HouseCard();
+            game1.Houseplay();
 
         }
     }
 }
-// Class properties or method 
+
 
 
 
