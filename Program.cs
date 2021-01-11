@@ -218,7 +218,7 @@ namespace BlackJack
                 if (playertotal > 21)
                 {
                     Console.WriteLine("\n");
-                    Console.WriteLine("You Lost");
+                    Console.WriteLine("You busted and lost");
                     Environment.Exit(-1);
                 }
             }
